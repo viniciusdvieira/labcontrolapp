@@ -5,21 +5,17 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 // Screens
-import HomeScreenAluno from './aluno/HomeScreenAluno';
-import LabScreenAluno from './aluno/LabScreenAluno';
-import ContaScreenAluno from './aluno/ContaScreenAluno';
+import HomeScreenServer from './servidor/HomeScreenServer';
 
 
 //Screen names
 const homeName = "Home";
-const labName = "Laboratorio";
-const contaName = "Conta";
 
 
 
 const Tab = createBottomTabNavigator();
 
-function MainContainerAluno() {
+function MainContainerServidor() {
   return (
     <Tab.Navigator
       initialRouteName={homeName}
@@ -30,13 +26,8 @@ function MainContainerAluno() {
 
           if (rn === homeName) {
             iconName = focused ? 'home' : 'home-outline';
-
-          } else if (rn === labName) {
-            iconName = focused ? 'bar-chart' : 'bar-chart-outline';
-
-          } else if (rn === contaName) {
-            iconName = focused ? 'person' : 'person-outline';
           }
+
 
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -49,12 +40,10 @@ function MainContainerAluno() {
         style: { padding: 10, height: 70}
       }}>
 
-      <Tab.Screen name={homeName} component={HomeScreenAluno} />
-      <Tab.Screen name={labName} component={LabScreenAluno} />
-      <Tab.Screen name={contaName} component={ContaScreenAluno} />
+      <Tab.Screen name={homeName} component={HomeScreenServer} />
 
     </Tab.Navigator>
   );
 }
 
-export default MainContainerAluno;
+export default MainContainerServidor;

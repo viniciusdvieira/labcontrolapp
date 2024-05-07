@@ -5,21 +5,23 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 // Screens
-import HomeScreenAluno from './aluno/HomeScreenAluno';
-import LabScreenAluno from './aluno/LabScreenAluno';
-import ContaScreenAluno from './aluno/ContaScreenAluno';
+import HomeScreenAdm from './adm/HomeScreenAdm';
+import LabScreenAdm from './adm/LabScreenAdm';
+import ContaScreenAdm from './adm/ContaScreenAdm';
+import CadastroScreenAdm from './adm/CadastroScreenAdm';
 
 
 //Screen names
 const homeName = "Home";
 const labName = "Laboratorio";
 const contaName = "Conta";
+const cadastroName = "Cadastro";
 
 
 
 const Tab = createBottomTabNavigator();
 
-function MainContainerAluno() {
+function MainContainerAdm() {
   return (
     <Tab.Navigator
       initialRouteName={homeName}
@@ -36,6 +38,9 @@ function MainContainerAluno() {
 
           } else if (rn === contaName) {
             iconName = focused ? 'person' : 'person-outline';
+          
+          } else if (rn === cadastroName) {
+            iconName = focused ? 'person-add' : 'person-add-outline';
           }
 
           // You can return any component that you like here!
@@ -49,12 +54,14 @@ function MainContainerAluno() {
         style: { padding: 10, height: 70}
       }}>
 
-      <Tab.Screen name={homeName} component={HomeScreenAluno} />
-      <Tab.Screen name={labName} component={LabScreenAluno} />
-      <Tab.Screen name={contaName} component={ContaScreenAluno} />
+      <Tab.Screen name={homeName} component={HomeScreenAdm} />
+      <Tab.Screen name={labName} component={LabScreenAdm} />
+      <Tab.Screen name={cadastroName} component={CadastroScreenAdm} />
+      <Tab.Screen name={contaName} component={ContaScreenAdm} />
+      
 
     </Tab.Navigator>
   );
 }
 
-export default MainContainerAluno;
+export default MainContainerAdm;
