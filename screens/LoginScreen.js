@@ -27,6 +27,7 @@ export default function LoginScreen() {
             if (response.ok) {
                 // Armazena o token no AsyncStorage
                 await AsyncStorage.setItem('token', data.token);
+                await AsyncStorage.setItem('id', String(data.id));
                 // Verifica a role do usuário
                 switch (data.role) {
                     case 'ALUNO':
