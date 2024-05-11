@@ -5,70 +5,75 @@ import Animated, { FadeIn, FadeOut, FadeInUp, FadeInDown } from 'react-native-re
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function CadastroAdm() {
-    const navigation = useNavigation();
+export default function EditarAluno() {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [cpf, setCpf] = useState('');
     const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [acesso, setAcesso] = useState('');
+    const [rg, setRg] = useState('');
 
+    const navigation = useNavigation();
 
-
-
-
-    const formatarTelefone = (value) => {
-        const numTelefone = value.replace(/\D/g, '');
-        setTelefone(numTelefone.replace(/^(\d{2})(\d{1})(\d{4})(\d{4})$/, '($1) $2 $3-$4'));
-    };
-    
-
-    const handleSignupAdm = async () => {
+    const handleEditarPerfil = async () => {
         try {
+            // Obter dados do usuário do AsyncStorage
+            const userId = await AsyncStorage.getItem('id');
             const token = await AsyncStorage.getItem('token');
-            const response = await fetch('http://192.168.3.15:8080/auth/registro/adm', {
-                method: 'POST',
+
+            // Construir o objeto de dados para a solicitação PUT
+            const userData = {
+                id: userId,
+                login: usuario,
+                pass: senha,
+                pessoa: {
+                    id: userId,
+                    nome: nome,
+                    email: email,
+                    telefone: telefone,
+                    acesso: acesso,
+                    cpf: cpf, // Atualize com o CPF do usuário, se disponível
+                    rg: rg // Atualize com o RG do usuário, se disponível
+                }
+            };
+
+            // Fazer a solicitação PUT para a API
+            const response = await fetch('http://192.168.3.15:8080/usuario/atualizar/aluno', {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    login: usuario,
-                    pass: senha,
-                    pessoa: {
-                        nome: nome,
-                        email: email,
-                        telefone: telefone,
-                    }
-                })
+                body: JSON.stringify(userData)
             });
-            const data = await response.json();
+
+            // Verificar se a solicitação foi bem-sucedida
             if (response.ok) {
-                Alert.alert('Cadastro realizado com sucesso!');
+                // Exibir mensagem de sucesso
+                Alert.alert('Sucesso', 'Perfil editado com sucesso!');
+                // Navegar de volta para a tela anterior ou para onde desejar
+                navigation.goBack();
             } else {
-                Alert.alert('Erro ao fazer cadastro aqui1', data.message);
+                // Se houver erro na solicitação, exibir mensagem de erro
+                Alert.alert('Erro', 'Ocorreu um erro ao editar o perfil. Por favor, tente novamente mais tarde.');
             }
         } catch (error) {
-            console.error('Erro ao fazer cadastro: aqui3', error);
-            Alert.alert('Erro ao fazer cadastro aqui2');
+            console.error('Erro ao editar perfil:', error);
         }
     };
-
+    
     return (
         <View className="bg-white h-full w-full">
-            <StatusBar style="light" />
-            
 
-            {/* lampada */}
-            
 
             {/* titulo e form */}
             <View className="h-full w-full flex justify-around pb-1 pt-60">
                 {/* titulo */}
                 <View className="flex items-center">
-                    <Animated.Text entering={FadeInUp.duration(1000).springify()} className="text-white font-bold tracking-wider text-5xl">
-                        Cadastro Adm
+                    <Animated.Text entering={FadeInUp.duration(1000).springify()} className="text-black font-bold tracking-wider text-5xl">
+                        editar perfil
                     </Animated.Text>
                 </View>
 
@@ -87,8 +92,7 @@ export default function CadastroAdm() {
                         <TextInput 
                             placeholder='Telefone' 
                             placeholderTextColor={'gray'} 
-                            onChangeText={formatarTelefone} 
-                            value={telefone} 
+                            onChangeText={setTelefone}
                             keyboardType='numeric' 
                         />
                     </Animated.View>
@@ -104,9 +108,9 @@ export default function CadastroAdm() {
                     <View className="w-full ">
                         <Animated.View entering={FadeInDown.delay(400).duration(1000).springify()} className="w-full">
                             <TouchableOpacity
-                                onPress={handleSignupAdm}
+                                onPress={handleEditarPerfil}
                                 className="w-full bg-sky-400 p-1 rounded-2xl mb-2">
-                                <Text className="text-xl font-bold text-white text-center">SingUp</Text>
+                                <Text className="text-xl font-bold text-white text-center">confirmar</Text>
                             </TouchableOpacity>
                         </Animated.View>
                     </View>

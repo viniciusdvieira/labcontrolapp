@@ -1,23 +1,21 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 
 // Screens
 import HomeScreenAluno from './aluno/HomeScreenAluno';
 import LabScreenAluno from './aluno/LabScreenAluno';
 import ContaScreenAluno from './aluno/ContaScreenAluno';
+import editarScreenAluno from './aluno/editarScreenAluno';
 
-
-//Screen names
+// Screen names
 const homeName = "Home";
 const labName = "Laboratorio";
 const contaName = "Conta";
 
-
-
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 function MainContainerAluno() {
   return (
@@ -30,10 +28,8 @@ function MainContainerAluno() {
 
           if (rn === homeName) {
             iconName = focused ? 'home' : 'home-outline';
-
           } else if (rn === labName) {
             iconName = focused ? 'bar-chart' : 'bar-chart-outline';
-
           } else if (rn === contaName) {
             iconName = focused ? 'person' : 'person-outline';
           }
@@ -48,13 +44,20 @@ function MainContainerAluno() {
         labelStyle: { paddingBottom: 1, fontSize: 10 },
         style: { padding: 10, height: 70}
       }}>
-
       <Tab.Screen name={homeName} component={HomeScreenAluno} />
       <Tab.Screen name={labName} component={LabScreenAluno} />
       <Tab.Screen name={contaName} component={ContaScreenAluno} />
-
     </Tab.Navigator>
   );
 }
 
-export default MainContainerAluno;
+function MainContainerWithEditScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="MainContainerAluno" component={MainContainerAluno} options={{ headerShown: false }} />
+      <Stack.Screen name="editarScreenAluno" component={editarScreenAluno} />
+    </Stack.Navigator>
+  );
+}
+
+export default MainContainerWithEditScreen;
