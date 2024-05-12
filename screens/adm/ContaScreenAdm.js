@@ -1,23 +1,65 @@
-import { View, Text, Image,TextInput, TouchableOpacity } from 'react-native';
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import Animated,{ FadeIn, FadeOut, FadeInUp, FadeInDown } from 'react-native-reanimated';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ActivityIndicator, TouchableOpacity, Button  } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+export default function ContaAdm({ navigation }) {
+    const [userData, setUserData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
-export default function ContaAdm(navigation){
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const userId = await AsyncStorage.getItem('id');
+                const token = await AsyncStorage.getItem('token');
+
+                if (userId && token) {
+                    const response = await fetch(`http://192.168.3.15:8080/usuario/get${userId}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        setUserData(data.pessoa);
+                    } else {
+                        console.error('Erro ao buscar dados do usuário:', response.status);
+                    }
+                } else {
+                    console.error('ID do usuário ou token não encontrados');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar dados do usuário:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+    const handleEditProfile = () => {
+        navigation.navigate('editarScreenAdm');
+    };
+
     return (
-        <View className="bg-white h-full w-full">
-
-            {/* titulo e form */}
-            <View className="h-full w-full flex justify-around pb-1 pt-60">
-                {/* titulo */}
-                <View className="flex items-center">
-                    <Text className="text-black font-bold tracking-wider text-5xl">
-                      ContaAdm
-                    </Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            {isLoading ? (
+                <ActivityIndicator size="large" color="#0000ff" />
+            ) : (
+                <View>
+                    <Text>Nome: {userData ? userData.nome : 'Não disponível'}</Text>
+                    <Text>Email: {userData ? userData.email : 'Não disponível'}</Text>
+                    <Text>Telefone: {userData ? (userData.telefone || 'Não disponível') : 'Não disponível'}</Text>
+                    <Text>acesso: {userData ? userData.acesso : 'Não disponível'}</Text>
+                    <Text>cpf: {userData ? userData.cpf : 'Não disponível'}</Text>
+                    <Text>rg: {userData ? userData.rg : 'Não disponível'}</Text>
+                    <TouchableOpacity onPress={handleEditProfile}>
+                        <Text style={{ color: 'blue', marginTop: 10 }}>Editar Perfil</Text>
+                    </TouchableOpacity>
                 </View>
-            </View>
+            )}
         </View>
-    )
+    );
 }

@@ -51,7 +51,7 @@ function MainContainerAluno() {
   );
 }
 
-function MainContainerWithEditScreen() {
+function MainContainerWithEditScreenAluno() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="MainContainerAluno" component={MainContainerAluno} options={{ headerShown: false }} />
@@ -60,4 +60,4 @@ function MainContainerWithEditScreen() {
   );
 }
 
-export default MainContainerWithEditScreen;
+export default MainContainerWithEditScreenAluno;

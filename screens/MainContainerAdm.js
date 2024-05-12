@@ -2,14 +2,14 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import { createStackNavigator } from '@react-navigation/stack';
 
 // Screens
 import HomeScreenAdm from './adm/HomeScreenAdm';
 import LabScreenAdm from './adm/LabScreenAdm';
 import ContaScreenAdm from './adm/ContaScreenAdm';
 import CadastroScreenAdm from './adm/CadastroScreenAdm';
-
+import editarScreenAdm from './adm/editarScreenAdm';
 
 //Screen names
 const homeName = "Home";
@@ -20,6 +20,7 @@ const cadastroName = "Cadastro";
 
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 function MainContainerAdm() {
   return (
@@ -64,4 +65,13 @@ function MainContainerAdm() {
   );
 }
 
-export default MainContainerAdm;
+function MainContainerWithEditScreenAdm() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="MainContainerAdm" component={MainContainerAdm} options={{ headerShown: false }} />
+      <Stack.Screen name="editarScreenAdm" component={editarScreenAdm} />
+    </Stack.Navigator>
+  );
+}
+
+export default MainContainerWithEditScreenAdm;
