@@ -42,6 +42,9 @@ export default function ContaAdm({ navigation }) {
     const handleEditProfile = () => {
         navigation.navigate('editarScreenAdm');
     };
+    const handleEditAllProfile = () => {
+        navigation.navigate('editarAllScreenAdm');
+    };
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -52,11 +55,11 @@ export default function ContaAdm({ navigation }) {
                     <Text>Nome: {userData ? userData.nome : 'Não disponível'}</Text>
                     <Text>Email: {userData ? userData.email : 'Não disponível'}</Text>
                     <Text>Telefone: {userData ? (userData.telefone || 'Não disponível') : 'Não disponível'}</Text>
-                    <Text>acesso: {userData ? userData.acesso : 'Não disponível'}</Text>
-                    <Text>cpf: {userData ? userData.cpf : 'Não disponível'}</Text>
-                    <Text>rg: {userData ? userData.rg : 'Não disponível'}</Text>
                     <TouchableOpacity onPress={handleEditProfile}>
                         <Text style={{ color: 'blue', marginTop: 10 }}>Editar Perfil</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handleEditAllProfile}>
+                        <Text style={{ color: 'blue', marginTop: 10 }}>Editar Todos Perfis</Text>
                     </TouchableOpacity>
                 </View>
             )}

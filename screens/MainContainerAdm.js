@@ -10,6 +10,7 @@ import LabScreenAdm from './adm/LabScreenAdm';
 import ContaScreenAdm from './adm/ContaScreenAdm';
 import CadastroScreenAdm from './adm/CadastroScreenAdm';
 import editarScreenAdm from './adm/editarScreenAdm';
+import editarAllScreenAdm from './adm/editarAllScreenAdm';
 
 //Screen names
 const homeName = "Home";
@@ -70,6 +71,7 @@ function MainContainerWithEditScreenAdm() {
     <Stack.Navigator>
       <Stack.Screen name="MainContainerAdm" component={MainContainerAdm} options={{ headerShown: false }} />
       <Stack.Screen name="editarScreenAdm" component={editarScreenAdm} />
+      <Stack.Screen name="editarAllScreenAdm" component={editarAllScreenAdm} />
     </Stack.Navigator>
   );
 }
