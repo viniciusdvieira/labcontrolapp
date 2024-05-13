@@ -151,9 +151,6 @@ export default function EditarAll() {
             <View className="h-full w-full flex justify-around pb-1 pt-10">
                 <View className="flex items-center mx-4 space-y-4 mt-40 mb-5">
                     <Animated.View entering={FadeInDown.duration(1000).springify()} className="bg-black/5 p-2 rounded-2xl w-full">
-                        <TextInput placeholder='ID *' placeholderTextColor={'gray'} onChangeText={setId} value={Id} />
-                    </Animated.View>
-                    <Animated.View entering={FadeInDown.duration(1000).springify()} className="bg-black/5 p-2 rounded-2xl w-full">
                         <TextInput placeholder='Nome completo *' placeholderTextColor={'gray'} onChangeText={setNome} value={nome} />
                     </Animated.View>
                     <Animated.View entering={FadeInDown.duration(1000).springify()} className="bg-black/5 p-2 rounded-2xl w-full">
@@ -184,7 +181,7 @@ export default function EditarAll() {
                             >
                                 <Picker.Item label="Selecione um administrador" value={null} />
                                 {users.map(user => (
-                                    <Picker.Item key={user.id} label={`${user.id} - ${user.login}`} value={user.id} />
+                                    <Picker.Item key={user.id} label={`${user.login}`} value={user.id} />
                                 ))}
                             </Picker>
                             {/* Dropdown para Servidores */}
@@ -195,7 +192,7 @@ export default function EditarAll() {
                             >
                                 <Picker.Item label="Selecione um servidor" value={null} />
                                 {servidores.map(servidor => (
-                                    <Picker.Item key={servidor.id} label={`${servidor.id} - ${servidor.login}`} value={servidor.id} />
+                                    <Picker.Item key={servidor.id} label={`${servidor.login}`} value={servidor.id} />
                                 ))}
                             </Picker>
                             {/* Dropdown para Alunos */}
@@ -206,7 +203,7 @@ export default function EditarAll() {
                             >
                                 <Picker.Item label="Selecione um aluno" value={null} />
                                 {alunos.map(aluno => (
-                                    <Picker.Item key={aluno.id} label={`${aluno.id} - ${aluno.login}`} value={aluno.id} />
+                                    <Picker.Item key={aluno.id} label={`${aluno.login}`} value={aluno.id} />
                                 ))}
                             </Picker>
                             <TouchableOpacity

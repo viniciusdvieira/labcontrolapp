@@ -34,7 +34,7 @@ function MainContainerServidor() {
         },
       })}
       tabBarOptions={{
-        activeTintColor: 'tomato',
+        activeTintColor: '#38BDF7',
         inactiveTintColor: 'grey',
         labelStyle: { paddingBottom: 1, fontSize: 10 },
         style: { padding: 10, height: 70}
