@@ -18,8 +18,6 @@ const labName = "Laboratorio";
 const contaName = "Conta";
 const cadastroName = "Cadastro";
 
-
-
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -34,34 +32,23 @@ function MainContainerAdm() {
 
           if (rn === homeName) {
             iconName = focused ? 'home' : 'home-outline';
-
           } else if (rn === labName) {
             iconName = focused ? 'bar-chart' : 'bar-chart-outline';
-
           } else if (rn === contaName) {
             iconName = focused ? 'person' : 'person-outline';
-          
           } else if (rn === cadastroName) {
             iconName = focused ? 'person-add' : 'person-add-outline';
           }
 
-          // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
-      tabBarOptions={{
-        activeTintColor: '#38BDF7',
-        inactiveTintColor: 'grey',
-        labelStyle: { paddingBottom: 1, fontSize: 10 },
-        style: { padding: 10, height: 70}
-      }}>
-
+      tabBarOptions={null} // Remove tabBarOptions
+    >
       <Tab.Screen name={homeName} component={HomeScreenAdm} />
       <Tab.Screen name={labName} component={LabScreenAdm} />
       <Tab.Screen name={cadastroName} component={CadastroScreenAdm} />
       <Tab.Screen name={contaName} component={ContaScreenAdm} />
-      
-
     </Tab.Navigator>
   );
 }

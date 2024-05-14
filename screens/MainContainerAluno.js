@@ -34,16 +34,11 @@ function MainContainerAluno() {
             iconName = focused ? 'person' : 'person-outline';
           }
 
-          // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
-      tabBarOptions={{
-        activeTintColor: '#38BDF7',
-        inactiveTintColor: 'grey',
-        labelStyle: { paddingBottom: 1, fontSize: 10 },
-        style: { padding: 10, height: 70}
-      }}>
+      tabBarOptions={null} // Remove tabBarOptions
+    >
       <Tab.Screen name={homeName} component={HomeScreenAluno} />
       <Tab.Screen name={labName} component={LabScreenAluno} />
       <Tab.Screen name={contaName} component={ContaScreenAluno} />

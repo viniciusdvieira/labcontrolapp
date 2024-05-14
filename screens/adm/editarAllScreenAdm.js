@@ -97,7 +97,7 @@ export default function EditarAll() {
             };
 
             // Fazer a solicitação PUT para a API
-            const response = await fetch('http://18.206.68.106:8080/usuario/atualizar/aluno', {
+            const response = await fetch('http://18.206.68.106:8080/usuario/atualizar/all', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
