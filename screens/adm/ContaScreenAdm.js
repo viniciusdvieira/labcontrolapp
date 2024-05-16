@@ -13,7 +13,7 @@ export default function ContaAdm({ navigation }) {
                 const token = await AsyncStorage.getItem('token');
 
                 if (userId && token) {
-                    const response = await fetch(`http://18.206.68.106:8080/usuario/get${userId}`, {
+                    const response = await fetch(`http://192.168.3.15:8080/usuario/get${userId}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`

@@ -40,7 +40,7 @@ export default function EditarAdm() {
             };
 
             // Fazer a solicitação PUT para a API
-            const response = await fetch('http://18.206.68.106:8080/usuario/atualizar/aluno', {
+            const response = await fetch('http://192.168.3.15:8080/usuario/atualizar/aluno', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

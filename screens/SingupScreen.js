@@ -27,7 +27,7 @@ export default function SingupScreen() {
 
     const handleSignup = async () => {
         try {
-            const response = await fetch('http://18.206.68.106:8080/auth/registro/aluno', {
+            const response = await fetch('http://192.168.3.15:8080/auth/registro/aluno', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

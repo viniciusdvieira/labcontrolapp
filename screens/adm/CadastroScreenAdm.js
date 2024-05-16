@@ -27,7 +27,7 @@ export default function CadastroAdm() {
     const handleSignupAdm = async () => {
         try {
             const token = await AsyncStorage.getItem('token');
-            const response = await fetch('http://18.206.68.106:8080/auth/registro/adm', {
+            const response = await fetch('http://192.168.3.15:8080/auth/registro/adm', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
