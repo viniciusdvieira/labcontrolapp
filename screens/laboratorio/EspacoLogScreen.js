@@ -5,7 +5,7 @@ import Animated,{ FadeIn, FadeOut, FadeInUp, FadeInDown } from 'react-native-rea
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function espacolog(navigation){
+export default function EspacoLog(navigation){
     return (
         <View className="bg-white h-full w-full">
 

@@ -18,7 +18,7 @@ export default function LabAdm() {
         navigation.navigate('cadastrarDigitalScreen');
     };
     const handlelog = () => {
-        navigation.navigate('espacologScreen');
+        navigation.navigate('EspacoLogScreen');
     };
 
 
@@ -37,13 +37,13 @@ export default function LabAdm() {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <TouchableOpacity
                         style={{ borderWidth: 1, borderColor: 'black', padding: 10, width: 150, alignItems: 'center' }}
-                        onPress={handleaddlab}
+                        onPress={handleaddpessoa}
                     >
                         <Text style={{ fontSize: 16, textAlign: 'center' }}>Adicionar pessoa</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={{ borderWidth: 1, borderColor: 'black', padding: 10, width: 150, alignItems: 'center' }}
-                        onPress={() => { /* Navigate or handle button press */ }}
+                        onPress={handleaddlab}
                     >
                         <Text style={{ fontSize: 16, textAlign: 'center' }}>Adicionar laboratorio</Text>
                     </TouchableOpacity>
@@ -51,13 +51,13 @@ export default function LabAdm() {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <TouchableOpacity
                         style={{ borderWidth: 1, borderColor: 'black', padding: 10, width: 150, alignItems: 'center' }}
-                        onPress={() => { /* Navigate or handle button press */ }}
+                        onPress={handlecadastrodigital}
                     >
                         <Text style={{ fontSize: 16, textAlign: 'center' }}>Cadastrar digital</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={{ borderWidth: 1, borderColor: 'black', padding: 10, width: 150, alignItems: 'center' }}
-                        onPress={() => { /* Navigate or handle button press */ }}
+                        onPress={handleaddResponsavel}
                     >
                         <Text style={{ fontSize: 16, textAlign: 'center' }}>Cadastrar Responsavel</Text>
                     </TouchableOpacity>
@@ -65,7 +65,7 @@ export default function LabAdm() {
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity
                         style={{ borderWidth: 1, borderColor: 'black', padding: 10, width: 300, alignItems: 'center', marginBottom: 50 }}
-                        onPress={() => { /* Navigate or handle button press */ }}
+                        onPress={handlelog}
                     >
                         <Text style={{ fontSize: 16, textAlign: 'center' }}>Log</Text>
                     </TouchableOpacity>
