@@ -1,3 +1,4 @@
+
 {
   "expo": {
     "name": "LabControlapp",
@@ -15,6 +16,11 @@
       "eas": {
         "projectId": "9a1e2162-1beb-4277-a277-2f4959768101"
       }
+    },
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF"
     }
   }
 }
