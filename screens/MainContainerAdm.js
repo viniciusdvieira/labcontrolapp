@@ -12,6 +12,13 @@ import CadastroScreenAdm from './adm/CadastroScreenAdm';
 import editarScreenAdm from './adm/editarScreenAdm';
 import editarAllScreenAdm from './adm/editarAllScreenAdm';
 
+// Screens lab
+import addlabScreen from './laboratorio/addlabScreen';
+import addpessoalabScreen from './laboratorio/addpessoaScreen';
+import addResponsavellabScreen from './laboratorio/addResponsavelScreen';
+import cadastrarDigitalScreenScreen from './laboratorio/cadastrarDigitalScreen';
+import EspacoLogScreen from './laboratorio/EspacoLogScreen';
+
 //Screen names
 const homeName = "Home";
 const labName = "Laboratorio";
@@ -59,6 +66,11 @@ function MainContainerWithEditScreenAdm() {
       <Stack.Screen name="MainContainerAdm" component={MainContainerAdm} options={{ headerShown: false }} />
       <Stack.Screen name="editarScreenAdm" component={editarScreenAdm} />
       <Stack.Screen name="editarAllScreenAdm" component={editarAllScreenAdm} />
+      <Stack.Screen name="addlabScreen" component={addlabScreen} />
+      <Stack.Screen name="addpessoalabScreen" component={addpessoalabScreen} />
+      <Stack.Screen name="addResponsavellabScreen" component={addResponsavellabScreen} />
+      <Stack.Screen name="cadastrarDigitalScreenScreen" component={cadastrarDigitalScreenScreen} />
+      <Stack.Screen name="EspacoLogScreen" component={EspacoLogScreen} />
     </Stack.Navigator>
   );
 }

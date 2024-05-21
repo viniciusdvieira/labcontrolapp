@@ -1,23 +1,77 @@
-import { View, Text, Image,TextInput, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import Animated,{ FadeIn, FadeOut, FadeInUp, FadeInDown } from 'react-native-reanimated';
+import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 
+export default function LabAdm() {
+    const navigation = useNavigation(); // Correct usage of useNavigation
+    const handleaddlab = () => {
+        navigation.navigate('addlabScreen');
+    };
+    const handleaddpessoa = () => {
+        navigation.navigate('addpessoaScreen');
+    };
+    const handleaddResponsavel = () => {
+        navigation.navigate('addResponsavelScreen');
+    };
+    const handlecadastrodigital = () => {
+        navigation.navigate('cadastrarDigitalScreen');
+    };
+    const handlelog = () => {
+        navigation.navigate('espacologScreen');
+    };
 
-export default function LabAdm(navigation){
+
     return (
-        <View className="bg-white h-full w-full">
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+            <StatusBar style="auto" />
 
-            {/* titulo e form */}
-            <View className="h-full w-full flex justify-around pb-1 pt-60">
-                {/* titulo */}
-                <View className="flex items-center">
-                    <Text className="text-black font-bold tracking-wider text-5xl">
-                      LabAdm
-                    </Text>
+            <Animated.View
+                style={{ flex: 1, justifyContent: 'space-around', paddingBottom: 4, paddingTop: 60 }}
+                entering={FadeIn}
+                exiting={FadeOut}
+            >
+
+
+                {/* Buttons */}
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                    <TouchableOpacity
+                        style={{ borderWidth: 1, borderColor: 'black', padding: 10, width: 150, alignItems: 'center' }}
+                        onPress={handleaddlab}
+                    >
+                        <Text style={{ fontSize: 16, textAlign: 'center' }}>Adicionar pessoa</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{ borderWidth: 1, borderColor: 'black', padding: 10, width: 150, alignItems: 'center' }}
+                        onPress={() => { /* Navigate or handle button press */ }}
+                    >
+                        <Text style={{ fontSize: 16, textAlign: 'center' }}>Adicionar laboratorio</Text>
+                    </TouchableOpacity>
                 </View>
-            </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                    <TouchableOpacity
+                        style={{ borderWidth: 1, borderColor: 'black', padding: 10, width: 150, alignItems: 'center' }}
+                        onPress={() => { /* Navigate or handle button press */ }}
+                    >
+                        <Text style={{ fontSize: 16, textAlign: 'center' }}>Cadastrar digital</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{ borderWidth: 1, borderColor: 'black', padding: 10, width: 150, alignItems: 'center' }}
+                        onPress={() => { /* Navigate or handle button press */ }}
+                    >
+                        <Text style={{ fontSize: 16, textAlign: 'center' }}>Cadastrar Responsavel</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ alignItems: 'center' }}>
+                    <TouchableOpacity
+                        style={{ borderWidth: 1, borderColor: 'black', padding: 10, width: 300, alignItems: 'center', marginBottom: 50 }}
+                        onPress={() => { /* Navigate or handle button press */ }}
+                    >
+                        <Text style={{ fontSize: 16, textAlign: 'center' }}>Log</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </Animated.View>
         </View>
-    )
+    );
 }
