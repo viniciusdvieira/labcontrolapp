@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import Animated, { FadeIn, FadeOut, FadeInUp, FadeInDown } from 'react-native-reanimated';
+import Animated, { FadeInUp, FadeInDown } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 
 export default function LoginScreen() {
     const navigation = useNavigation();
@@ -22,13 +23,15 @@ export default function LoginScreen() {
                     pass: senha
                 })
             });
+
             const data = await response.json();
-            // Verifica se a resposta foi bem-sucedida
             if (response.ok) {
-                // Armazena o token no AsyncStorage
                 await AsyncStorage.setItem('token', data.token);
                 await AsyncStorage.setItem('id', String(data.id));
-                // Verifica a role do usuário
+                Toast.show({
+                    type: 'success',
+                    text1: 'Login bem-sucedido',
+                });
                 switch (data.role) {
                     case 'ALUNO':
                         navigation.navigate('HomeAluno');
@@ -40,52 +43,82 @@ export default function LoginScreen() {
                         navigation.navigate('HomeServer');
                         break;
                     default:
-                        // Se a role não for reconhecida, você pode navegar para uma tela de erro ou fazer outra coisa
-                        Alert.alert('Erro', 'Role não reconhecida');
+                        Toast.show({
+                            type: 'error',
+                            text1: 'Erro',
+                            text2: 'Role não reconhecida',
+                        });
                         break;
                 }
             } else {
-                // Se a resposta da API não for bem-sucedida, exibe uma mensagem de erro
-                Alert.alert('Erro ao fazer login', data.message);
+                // Display the error message from the API response
+                const errorMessage = data.erro || 'Erro ao fazer login';
+                Toast.show({
+                    type: 'error',
+                    text1: 'Erro ao fazer login',
+                    text2: errorMessage,
+                });
             }
         } catch (error) {
-            // Se houver algum erro de rede ou outro erro, exibe uma mensagem de erro genérica
             console.error('Erro ao fazer login:', error);
-            Alert.alert('Erro ao fazer login');
+            Toast.show({
+                type: 'error',
+                text1: 'Erro ao fazer login',
+                text2: 'Erro de rede ou outro erro.',
+            });
         }
+    };
+
+    const toastConfig = {
+        error: (props) => (
+            <ErrorToast
+                {...props}
+                text1Style={{
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                }}
+                text2Style={{
+                    fontSize: 14,
+                }}
+                style={{ borderLeftColor: 'red' }}
+            />
+        ),
+        success: (props) => (
+            <BaseToast
+                {...props}
+                style={{ borderLeftColor: 'green' }}
+                text1Style={{
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }}
+                text2Style={{
+                    fontSize: 14,
+                }}
+            />
+        ),
     };
 
     return (
         <View className="bg-white h-full w-full">
             <StatusBar style="light" />
             <Image className="h-full w-full absolute" source={require('../assets/images/background.png')} />
-
-            {/* lampada */}
             <View className="flex-row justify-around w-full absolute">
                 <Animated.Image entering={FadeInUp.delay(200).duration(1000).springify()} className="h-[225] w-[90]" source={require('../assets/images/light.png')} />
                 <Animated.Image entering={FadeInUp.delay(400).duration(1000).springify()} className="h-[160] w-[65]" source={require('../assets/images/light.png')} />
             </View>
-
-            {/* titulo e form */}
             <View className="h-full w-full flex justify-around pb-10 pt-40">
-                {/* titulo */}
                 <View className="flex items-center">
                     <Animated.Text entering={FadeInUp.duration(1000).springify()} className="text-white font-bold tracking-wider text-5xl">
                         Login
                     </Animated.Text>
                 </View>
-
-                {/* form */}
                 <View className="flex items-center mx-4 space-y-4">
-                    {/* login */}
                     <Animated.View entering={FadeInDown.duration(1000).springify()} className="bg-black/5 p-5 rounded-2xl w-full">
                         <TextInput placeholder='Login' placeholderTextColor={'gray'} onChangeText={setLogin} />
                     </Animated.View>
-                    {/* senha */}
                     <Animated.View entering={FadeInDown.delay(200).duration(1000).springify()} className="bg-black/5 p-5 rounded-2xl w-full mb-3">
                         <TextInput placeholder='Senha' placeholderTextColor={'gray'} secureTextEntry onChangeText={setSenha} />
                     </Animated.View>
-                    {/* Botão */}
                     <Animated.View entering={FadeInDown.delay(400).duration(1000).springify()} className="w-full">
                         <TouchableOpacity
                             onPress={handleLogin}
@@ -101,7 +134,7 @@ export default function LoginScreen() {
                     </Animated.View>
                 </View>
             </View>
-
+            <Toast config={toastConfig} position='bottom' />
         </View>
-    )
+    );
 }
