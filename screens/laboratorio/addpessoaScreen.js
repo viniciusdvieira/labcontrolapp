@@ -18,7 +18,7 @@ export default function AddPessoaLab() {
                 return;
             }
 
-            const response = await fetch('http://192.168.3.15:8080/espaco/adicionarPessoa', {
+            const response = await fetch('http://18.206.68.106:8080/espaco/adicionarPessoa', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

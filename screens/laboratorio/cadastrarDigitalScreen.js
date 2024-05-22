@@ -1,17 +1,140 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
+import RNPickerSelect from 'react-native-picker-select';
 
 export default function CadastroDigital() {
     const navigation = useNavigation(); // Correct usage of useNavigation
     const [pessoaId, setPessoaId] = useState('');
-    const [digitalId, setDigitalId] = useState('');
+    const [servidorId, setServidorId] = useState('');
     const [labId, setLabId] = useState('');
+    const [laboratorios, setLaboratorios] = useState([]);
+    const [pessoas, setPessoas] = useState([]);
+    const [servidores, setServidores] = useState([]);
+    const [loadingLabs, setLoadingLabs] = useState(true);
+    const [loadingPessoas, setLoadingPessoas] = useState(true);
+    const [loadingServidores, setLoadingServidores] = useState(true);
+
+    useEffect(() => {
+        const fetchLaboratorios = async () => {
+            try {
+                const token = await AsyncStorage.getItem('token');
+                if (!token) {
+                    Alert.alert('Error', 'No token found');
+                    setLoadingLabs(false);
+                    return;
+                }
+
+                const response = await fetch('http://18.206.68.106:8080/espaco/listAll', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                const data = await response.json();
+                const labs = data.map(lab => ({
+                    label: lab.nome,
+                    value: lab.endercoIp,
+                    id: lab.id,
+                }));
+                setLaboratorios(labs);
+                setLoadingLabs(false);
+            } catch (error) {
+                Alert.alert('Error', 'Failed to fetch laboratorios');
+                setLoadingLabs(false);
+            }
+        };
+
+        const fetchPessoas = async () => {
+            try {
+                const token = await AsyncStorage.getItem('token');
+                if (!token) {
+                    Alert.alert('Error', 'No token found');
+                    setLoadingPessoas(false);
+                    return;
+                }
+
+                const response = await fetch('http://18.206.68.106:8080/usuario/listAlunos', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                const data = await response.json();
+                const pessoasList = data.map(pessoa => ({
+                    label: pessoa.login,
+                    value: pessoa.id,
+                }));
+                setPessoas(pessoasList);
+                setLoadingPessoas(false);
+            } catch (error) {
+                Alert.alert('Error', 'Failed to fetch pessoas');
+                setLoadingPessoas(false);
+            }
+        };
+
+        const fetchServidores = async () => {
+            try {
+                const token = await AsyncStorage.getItem('token');
+                if (!token) {
+                    Alert.alert('Error', 'No token found');
+                    setLoadingServidores(false);
+                    return;
+                }
+
+                const response = await fetch('http://18.206.68.106:8080/usuario/listServidor', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                const data = await response.json();
+                const servidoresList = data.map(servidor => ({
+                    label: servidor.login,
+                    value: servidor.id,
+                }));
+                setServidores(servidoresList);
+                setLoadingServidores(false);
+            } catch (error) {
+                Alert.alert('Error', 'Failed to fetch servidores');
+                setLoadingServidores(false);
+            }
+        };
+
+        fetchLaboratorios();
+        fetchPessoas();
+        fetchServidores();
+    }, []);
+
+    const handlePessoaChange = value => {
+        setPessoaId(value);
+        if (value) {
+            setServidorId('');
+        }
+    };
+
+    const handleServidorChange = value => {
+        setServidorId(value);
+        if (value) {
+            setPessoaId('');
+        }
+    };
 
     const handleSubmit = async () => {
+        if (!labId || (!pessoaId && !servidorId)) {
+            Alert.alert('Error', 'Please select a lab and at least one pessoa or servidor');
+            return;
+        }
+
+        const url = `http://${labId}/CadastroDigital/PessoaId${pessoaId || servidorId}`;
+        console.log('Formatted URL:', url);
+
         try {
             const token = await AsyncStorage.getItem('token');
             if (!token) {
@@ -19,17 +142,11 @@ export default function CadastroDigital() {
                 return;
             }
 
-            const response = await fetch('http://192.168.3.15:8080/pessoa/cadastrarDigital', {
-                method: 'PUT',
+            const response = await fetch(url, {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({
-                    pessoaId: parseInt(pessoaId),
-                    digitalId: parseInt(digitalId),
-                    labId: parseInt(labId),
-                }),
             });
 
             if (response.ok) {
@@ -62,27 +179,77 @@ export default function CadastroDigital() {
 
                 {/* Formulário */}
                 <View style={{ paddingHorizontal: 20 }}>
-                    <TextInput
-                        style={{ borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 20 }}
-                        placeholder="Pessoa ID"
-                        keyboardType="numeric"
-                        value={pessoaId}
-                        onChangeText={setPessoaId}
-                    />
-                    <TextInput
-                        style={{ borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 20 }}
-                        placeholder="Digital ID"
-                        keyboardType="numeric"
-                        value={digitalId}
-                        onChangeText={setDigitalId}
-                    />
-                    <TextInput
-                        style={{ borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 20 }}
-                        placeholder="Lab ID"
-                        keyboardType="numeric"
-                        value={labId}
-                        onChangeText={setLabId}
-                    />
+                    {loadingLabs || loadingPessoas || loadingServidores ? (
+                        <ActivityIndicator size="large" color="#0000ff" />
+                    ) : (
+                        <>
+                            <RNPickerSelect
+                                placeholder={{ label: "Selecione um laboratório", value: null }}
+                                items={laboratorios}
+                                onValueChange={value => setLabId(value)}
+                                style={{
+                                    inputIOS: {
+                                        borderColor: 'gray',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        marginBottom: 20,
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                    inputAndroid: {
+                                        borderColor: 'gray',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        marginBottom: 20,
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                }}
+                            />
+                            <RNPickerSelect
+                                placeholder={{ label: "Selecione um aluno", value: null }}
+                                items={pessoas}
+                                onValueChange={handlePessoaChange}
+                                value={pessoaId}
+                                style={{
+                                    inputIOS: {
+                                        borderColor: 'gray',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        marginBottom: 20,
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                    inputAndroid: {
+                                        borderColor: 'gray',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        marginBottom: 20,
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                }}
+                            />
+                            <RNPickerSelect
+                                placeholder={{ label: "Selecione um servidor", value: null }}
+                                items={servidores}
+                                onValueChange={handleServidorChange}
+                                value={servidorId}
+                                style={{
+                                    inputIOS: {
+                                        borderColor: 'gray',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        marginBottom: 20,
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                    inputAndroid: {
+                                        borderColor: 'gray',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        marginBottom: 20,
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                }}
+                            />
+                        </>
+                    )}
                 </View>
 
                 {/* Botão de Envio */}
