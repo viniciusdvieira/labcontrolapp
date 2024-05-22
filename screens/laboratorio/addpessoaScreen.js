@@ -18,7 +18,7 @@ export default function AddPessoaLab() {
                 return;
             }
 
-            const response = await fetch('http://18.206.68.106:8080/espaco/adicionarPessoa', {
+            const response = await fetch('https://e40f-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/espaco/adicionarPessoa', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
