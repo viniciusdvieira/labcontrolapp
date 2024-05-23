@@ -20,7 +20,7 @@ export default function HomeAluno() {
                     return;
                 }
 
-                const response = await fetch(`https://e40f-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/pessoa/listEspaco${userId}`, {
+                const response = await fetch(`https://af2a-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/pessoa/listEspaco${userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

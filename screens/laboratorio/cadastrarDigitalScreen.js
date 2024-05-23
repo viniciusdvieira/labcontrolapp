@@ -28,7 +28,7 @@ export default function CadastroDigital() {
                     return;
                 }
 
-                const response = await fetch('https://e40f-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/espaco/listAll', {
+                const response = await fetch('https://af2a-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/espaco/listAll', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -58,7 +58,7 @@ export default function CadastroDigital() {
                     return;
                 }
 
-                const response = await fetch('https://e40f-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/usuario/listAlunos', {
+                const response = await fetch('https://af2a-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/usuario/listAlunos', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -87,7 +87,7 @@ export default function CadastroDigital() {
                     return;
                 }
 
-                const response = await fetch('https://e40f-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/usuario/listServidor', {
+                const response = await fetch('https://af2a-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/usuario/listServidor', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,

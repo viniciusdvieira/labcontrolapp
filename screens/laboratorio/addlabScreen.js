@@ -18,7 +18,7 @@ export default function AddLab() {
                 return;
             }
 
-            const response = await fetch('https://e40f-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/espaco/registro', {
+            const response = await fetch('https://af2a-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/espaco/registro', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

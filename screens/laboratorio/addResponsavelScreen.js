@@ -1,16 +1,89 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
+import RNPickerSelect from 'react-native-picker-select';
 
 export default function AddResponsavelLab() {
-    const navigation = useNavigation(); // Correct usage of useNavigation
+    const navigation = useNavigation();
     const [pessoaId, setPessoaId] = useState('');
     const [espacoId, setEspacoId] = useState('');
+    const [laboratorios, setLaboratorios] = useState([]);
+    const [servidores, setServidores] = useState([]);
+    const [loadingLabs, setLoadingLabs] = useState(true);
+    const [loadingServidores, setLoadingServidores] = useState(true);
+
+    useEffect(() => {
+        const fetchLaboratorios = async () => {
+            try {
+                const token = await AsyncStorage.getItem('token');
+                if (!token) {
+                    Alert.alert('Error', 'No token found');
+                    setLoadingLabs(false);
+                    return;
+                }
+
+                const response = await fetch('https://af2a-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/espaco/listAll', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                const data = await response.json();
+                const labs = data.map(lab => ({
+                    label: lab.nome,
+                    value: lab.id,
+                }));
+                setLaboratorios(labs);
+                setLoadingLabs(false);
+            } catch (error) {
+                Alert.alert('Error', 'Failed to fetch laboratorios');
+                setLoadingLabs(false);
+            }
+        };
+
+        const fetchServidores = async () => {
+            try {
+                const token = await AsyncStorage.getItem('token');
+                if (!token) {
+                    Alert.alert('Error', 'No token found');
+                    setLoadingServidores(false);
+                    return;
+                }
+
+                const response = await fetch('https://af2a-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/usuario/listServidor', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                const data = await response.json();
+                const servidoresList = data.map(servidor => ({
+                    label: servidor.login,
+                    value: servidor.pessoa.id,
+                }));
+                setServidores(servidoresList);
+                setLoadingServidores(false);
+            } catch (error) {
+                Alert.alert('Error', 'Failed to fetch servidores');
+                setLoadingServidores(false);
+            }
+        };
+
+        fetchLaboratorios();
+        fetchServidores();
+    }, []);
 
     const handleSubmit = async () => {
+        if (!espacoId || !pessoaId) {
+            Alert.alert('Error', 'Please select a lab and a servidor');
+            return;
+        }
+
         try {
             const token = await AsyncStorage.getItem('token');
             if (!token) {
@@ -18,7 +91,7 @@ export default function AddResponsavelLab() {
                 return;
             }
 
-            const response = await fetch('https://e40f-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/espaco/adicionarResponsavel', {
+            const response = await fetch('https://af2a-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/espaco/adicionarResponsavel', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,20 +133,54 @@ export default function AddResponsavelLab() {
 
                 {/* Formulário */}
                 <View style={{ paddingHorizontal: 20 }}>
-                    <TextInput
-                        style={{ borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 20 }}
-                        placeholder="Pessoa ID"
-                        keyboardType="numeric"
-                        value={pessoaId}
-                        onChangeText={setPessoaId}
-                    />
-                    <TextInput
-                        style={{ borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 20 }}
-                        placeholder="Espaço ID"
-                        keyboardType="numeric"
-                        value={espacoId}
-                        onChangeText={setEspacoId}
-                    />
+                    {loadingLabs || loadingServidores ? (
+                        <ActivityIndicator size="large" color="#0000ff" />
+                    ) : (
+                        <>
+                            <RNPickerSelect
+                                placeholder={{ label: "Selecione um laboratório", value: null }}
+                                items={laboratorios}
+                                onValueChange={value => setEspacoId(value)}
+                                style={{
+                                    inputIOS: {
+                                        borderColor: 'gray',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        marginBottom: 20,
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                    inputAndroid: {
+                                        borderColor: 'gray',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        marginBottom: 20,
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                }}
+                            />
+                            <RNPickerSelect
+                                placeholder={{ label: "Selecione um servidor", value: null }}
+                                items={servidores}
+                                onValueChange={value => setPessoaId(value)}
+                                style={{
+                                    inputIOS: {
+                                        borderColor: 'gray',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        marginBottom: 20,
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                    inputAndroid: {
+                                        borderColor: 'gray',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        marginBottom: 20,
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                }}
+                            />
+                        </>
+                    )}
                 </View>
 
                 {/* Botão de Envio */}
