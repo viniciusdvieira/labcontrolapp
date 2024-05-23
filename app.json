@@ -1,8 +1,7 @@
-
 {
   "expo": {
     "name": "LabControlapp",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "slug": "LabControlapp",
     "ios": {
       "bundleIdentifier": "com.yourcompany.yourappname",
@@ -10,7 +9,7 @@
     },
     "android": {
       "package": "com.yourcompany.yourappname",
-      "versionCode": 3
+      "versionCode": 5
     },
     "extra": {
       "eas": {
@@ -21,6 +20,7 @@
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
-    }
+    },
+    "icon": "./assets/icon.png"
   }
 }

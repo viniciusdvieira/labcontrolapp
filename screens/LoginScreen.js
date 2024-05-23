@@ -13,7 +13,7 @@ export default function LoginScreen() {
 
     const handleLogin = async () => {
         try {
-            const response = await fetch('https://af2a-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/auth/login', {
+            const response = await fetch('https://e535-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
