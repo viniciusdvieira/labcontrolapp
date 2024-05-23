@@ -24,7 +24,7 @@ export default function CadastroAdm() {
     const handleSignupAdm = async () => {
         try {
             const token = await AsyncStorage.getItem('token');
-            const response = await fetch('https://e535-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/auth/registro/all', {
+            const response = await fetch('https://4d1e-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/auth/registro/all', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -33,7 +33,7 @@ export default function EditarAll() {
             const token = await AsyncStorage.getItem('token');
 
             // Fetching Admins
-            const responseAdmins = await fetch('https://e535-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/usuario/listAdm', {
+            const responseAdmins = await fetch('https://4d1e-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/usuario/listAdm', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -46,7 +46,7 @@ export default function EditarAll() {
             }
 
             // Fetching Servidores
-            const responseServidores = await fetch('https://e535-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/usuario/listServidor', {
+            const responseServidores = await fetch('https://4d1e-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/usuario/listServidor', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -59,7 +59,7 @@ export default function EditarAll() {
             }
 
             // Fetching Alunos
-            const responseAlunos = await fetch('https://e535-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/usuario/listAlunos', {
+            const responseAlunos = await fetch('https://4d1e-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/usuario/listAlunos', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -97,7 +97,7 @@ export default function EditarAll() {
             };
 
             // Fazer a solicitação PUT para a API
-            const response = await fetch('https://e535-2804-28c8-51f-f790-dd38-8be0-fdd7-4497.ngrok-free.app/usuario/atualizar/all', {
+            const response = await fetch('https://4d1e-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/usuario/atualizar/all', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
