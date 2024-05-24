@@ -25,7 +25,7 @@ export default function AddResponsavelLab() {
                     return;
                 }
 
-                const response = await fetch('https://4d1e-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/espaco/listAll', {
+                const response = await fetch('https://cc4b-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/espaco/listAll', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -54,7 +54,7 @@ export default function AddResponsavelLab() {
                     return;
                 }
 
-                const response = await fetch('https://4d1e-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/usuario/listServidor', {
+                const response = await fetch('https://cc4b-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/usuario/listServidor', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -91,7 +91,7 @@ export default function AddResponsavelLab() {
                 return;
             }
 
-            const response = await fetch('https://4d1e-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/espaco/adicionarResponsavel', {
+            const response = await fetch('https://cc4b-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/espaco/adicionarResponsavel', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

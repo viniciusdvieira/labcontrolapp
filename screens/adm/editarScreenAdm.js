@@ -40,7 +40,7 @@ export default function EditarAdm() {
             };
 
             // Fazer a solicitação PUT para a API
-            const response = await fetch('https://4d1e-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/usuario/atualizar/adm', {
+            const response = await fetch('https://cc4b-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/usuario/atualizar/adm', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
