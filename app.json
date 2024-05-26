@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "LabControlapp",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "slug": "LabControlapp",
     "ios": {
       "bundleIdentifier": "com.yourcompany.yourappname",
@@ -9,7 +9,7 @@
     },
     "android": {
       "package": "com.yourcompany.yourappname",
-      "versionCode": 6
+      "versionCode": 7
     },
     "extra": {
       "eas": {

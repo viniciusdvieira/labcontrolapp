@@ -17,7 +17,7 @@ export default function EspacoLog({ navigation }) {
     const fetchLabs = async () => {
         try {
             const token = await AsyncStorage.getItem('token');
-            const response = await fetch('https://cc4b-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/espaco/listAll', {
+            const response = await fetch('https://bcf5-2804-28c8-51f-f790-c9b-7033-4e06-acd0.ngrok-free.app/espaco/listAll', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export default function EspacoLog({ navigation }) {
         setLoading(true);
         try {
             const token = await AsyncStorage.getItem('token');
-            const response = await fetch('https://cc4b-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/espacoLog/logs', {
+            const response = await fetch('https://bcf5-2804-28c8-51f-f790-c9b-7033-4e06-acd0.ngrok-free.app/espacoLog/logs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

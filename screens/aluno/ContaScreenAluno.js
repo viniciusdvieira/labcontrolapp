@@ -13,7 +13,7 @@ export default function ContaAluno({ navigation }) {
                 const token = await AsyncStorage.getItem('token');
 
                 if (userId && token) {
-                    const response = await fetch(`https://cc4b-2804-28c8-51f-f790-a945-8bc3-2a87-5032.ngrok-free.app/usuario/get${userId}`, {
+                    const response = await fetch(`https://bcf5-2804-28c8-51f-f790-c9b-7033-4e06-acd0.ngrok-free.app/usuario/get${userId}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`
