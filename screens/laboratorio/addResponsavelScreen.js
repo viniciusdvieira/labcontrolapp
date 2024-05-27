@@ -25,7 +25,7 @@ export default function AddResponsavelLab() {
                     return;
                 }
 
-                const response = await fetch('https://bcf5-2804-28c8-51f-f790-c9b-7033-4e06-acd0.ngrok-free.app/espaco/listAll', {
+                const response = await fetch('http://192.168.3.15:8080/espaco/listAll', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -54,7 +54,7 @@ export default function AddResponsavelLab() {
                     return;
                 }
 
-                const response = await fetch('https://bcf5-2804-28c8-51f-f790-c9b-7033-4e06-acd0.ngrok-free.app/usuario/listServidor', {
+                const response = await fetch('http://192.168.3.15:8080/usuario/listServidor', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -91,7 +91,7 @@ export default function AddResponsavelLab() {
                 return;
             }
 
-            const response = await fetch('https://bcf5-2804-28c8-51f-f790-c9b-7033-4e06-acd0.ngrok-free.app/espaco/adicionarResponsavel', {
+            const response = await fetch('http://192.168.3.15:8080/espaco/adicionarResponsavel', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

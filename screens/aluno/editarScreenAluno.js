@@ -40,7 +40,7 @@ export default function EditarAluno() {
             };
 
             // Fazer a solicitação PUT para a API
-            const response = await fetch('https://bcf5-2804-28c8-51f-f790-c9b-7033-4e06-acd0.ngrok-free.app/usuario/atualizar/aluno', {
+            const response = await fetch('http://192.168.3.15:8080/usuario/atualizar/aluno', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
